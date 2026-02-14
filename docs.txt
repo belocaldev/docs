@@ -1,3 +1,4 @@
 sdk/js/1.0.0/README.md
 sdk/php/1.0.0/README.md
+sdk/php/1.0.1/README.md
 sdk/react/1.0.0/README.md
