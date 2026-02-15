@@ -27,11 +27,7 @@ require_once 'vendor/autoload.php';
 use BeLocal\BeLocalEngine;
 
 $translator = BeLocalEngine::withApiKey('your-api-key-here');
-```
 
-### Simplest call
-
-```php
 $translated = $translator->t('Hello, world!', 'fr', null, 'website greeting');
 // "Bonjour, monde !"
 ```
@@ -125,13 +121,13 @@ BeLocalEngine::withApiKey(string $apiKey, int $timeout = 30): BeLocalEngine
 $engine->t(string $text, string $lang, ?string $sourceLang, string $userContext, bool $managed = false): string
 ```
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
+| Parameter | Type | Description | Default  |
+|-----------|------|-------------|----------|
 | $text | string | Text to translate | Required |
 | $lang | string | Target language code (e.g., 'fr', 'es') | Required |
-| $sourceLang | string\|null | Source language (null = auto-detect) | Required |
+| $sourceLang | string\|null | Source language (null = auto-detect) | false    |
 | $userContext | string | Context to improve translation accuracy | Required |
-| $managed | bool | Use managed translations cache | false |
+| $managed | bool | Use managed translations cache | false    |
 
 Returns translated text, or original text on error.
 
