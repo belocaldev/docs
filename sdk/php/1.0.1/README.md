@@ -18,7 +18,7 @@ composer require belocal/sdk
 
 ## Usage
 
-### Basic Usage
+### Initialization
 
 ```php
 <?php
@@ -26,29 +26,58 @@ require_once 'vendor/autoload.php';
 
 use BeLocal\BeLocalEngine;
 
-// Initialize the translation engine
 $translator = BeLocalEngine::withApiKey('your-api-key-here');
+```
 
-// Translate a single text
+### Simplest call
+
+```php
 $translated = $translator->t('Hello, world!', 'fr', null, 'website greeting');
-echo $translated; // "Bonjour, monde !"
+// "Bonjour, monde !"
+```
 
-// Translate multiple texts at once
+### t() — translate single text
+
+```php
+$translated = $translator->t('Hello, world!', 'fr', null, 'website greeting');
+```
+
+### tMany() — translate multiple texts
+
+```php
 $translated = $translator->tMany(['Hello', 'Goodbye'], 'fr', null, 'website UI');
 // ['Bonjour', 'Au revoir']
+```
 
-// Use managed translations (editable in cache)
+### t() with managed cache
+
+```php
 $translated = $translator->t('Hello', 'fr', null, 'website greeting', true);
+```
+
+### tMany() with managed cache
+
+```php
 $translated = $translator->tMany(['Hello', 'Goodbye'], 'fr', null, 'website UI', true);
 ```
 
-### Advanced Usage
-
-Use `translateRequest()` / `translateMultiRequest()` for full control over requests and results:
+### translateRequest() — single request with full control
 
 ```php
 use BeLocal\TranslateRequest;
 
+$request = $translator->translateRequest(
+    new TranslateRequest(['Hello'], 'fr', null, ['user_ctx' => 'greeting'])
+);
+
+if ($request->isSuccessful()) {
+    $texts = $request->getResult()->getTexts();
+}
+```
+
+### translateMultiRequest() — batch requests
+
+```php
 $requests = [
     new TranslateRequest(['Hello world', 'How are you?'], 'es', 'en', ['user_ctx' => 'product page']),
     new TranslateRequest(['Good morning'], 'fr', null, ['user_ctx' => 'email subject']),
@@ -59,18 +88,13 @@ $requests = $translator->translateMultiRequest($requests);
 foreach ($requests as $request) {
     if ($request->isSuccessful()) {
         $texts = $request->getResult()->getTexts();
-        echo implode(', ', $texts) . "\n";
-    } else {
-        echo "Error: " . $request->getResult()->getError()->getMessage() . "\n";
     }
 }
 ```
 
-### Error Handling
+### Error handling
 
-`t()` and `tMany()` return the original text on error, so your app keeps working even if the translation service is unavailable.
-
-For explicit error handling, use `translateRequest()`:
+`t()` and `tMany()` return the original text on error. For explicit error handling, use `translateRequest()`:
 
 ```php
 $request = $translator->translateRequest(
