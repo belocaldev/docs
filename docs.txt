@@ -4,10 +4,14 @@ sdk/js/1.0.3/README.md
 sdk/js/1.0.4/README.md
 sdk/js/1.0.5/README.md
 sdk/js/1.0.6/README.md
+sdk/js/1.0.8/README.md
 sdk/php/1.0.0/README.md
 sdk/php/1.0.1/README.md
 sdk/php/1.0.2/README.md
 sdk/php/1.0.3/README.md
+sdk/php/1.0.4/README.md
 sdk/react/1.0.0/README.md
 sdk/react/1.0.1/README.md
 sdk/react/1.0.3/README.md
+sdk/react/1.0.4/README.md
+sdk/web/0.0.6/README.md
